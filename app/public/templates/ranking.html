@@ -1,0 +1,16 @@
+
+{% extends "base.html" %}
+{% block app_content %}
+<h1>Ranking</h1>
+<br>
+<table border="0">
+   {% for resultado in ranking %}
+		<tr><td><a>
+		{{resultado.usuario}} - {{resultado.t_jugado}}
+		</a></td></tr>
+   {% endfor %}
+</table>
+<hr>
+<br>
+{% endblock %}
+

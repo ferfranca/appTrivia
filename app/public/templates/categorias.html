@@ -1,0 +1,16 @@
+
+{% extends "base.html" %}
+{% block app_content %}
+<h1>Seleccione Categoria</h1>
+<br>
+<table border="0">
+   {% for categoria in categorias %}
+		<tr><td><a href="/trivia/{{categoria.id}}/pregunta">
+		{{categoria.descripcion}}
+		</a></td></tr>
+   {% endfor %}
+</table>
+<hr>
+<br>
+{% endblock %}
+

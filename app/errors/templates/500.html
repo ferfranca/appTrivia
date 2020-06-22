@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+    Ooops!! Parece que ha habido un error :(<br>
+    {% if msj %}
+        Error:  {{ msj }}
+    {% endif %}
+{% endblock %}

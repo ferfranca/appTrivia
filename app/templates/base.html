@@ -1,0 +1,26 @@
+{% extends 'bootstrap/base.html' %}
+{% block title %}
+    <title> Trivia </title>
+{% endblock %}
+{% block content %}
+    <div>
+        <a href="{{ url_for('public.index_trivia') }}">Inicio</a>
+        {% if current_user.is_anonymous %}
+            <a href="{{ url_for('auth.login') }}">Iniciar sesión</a>
+        {% else %}
+            <a href="{{ url_for('auth.logout') }}">Cerrar sesión</a> Usuario {{ current_user.nombre }} {{ current_user.apellido }}
+        {% endif %}
+    </div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    {% block app_content %}{% endblock %}
+{% endblock %}
+

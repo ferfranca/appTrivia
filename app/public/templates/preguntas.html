@@ -1,0 +1,25 @@
+    {% extends "base.html" %}
+    {% block app_content %}
+        <h1>Categoría {{categoria.descripcion}}</h1>
+        <br>
+        <div style="text-align: center;">
+            <h2>
+                <span style="font-weight: bold; background-color: rgb(147, 206, 222);">{{pregunta.text}}</span>
+            </h2>
+            <br><div style="text-align:center;"></div><br>
+            <h2>
+                <table border="0">
+                        {% for r in respuestas_posibles %}
+                                <tr><td>
+                                    <a href="/trivia/{{pregunta.id}}/respuesta/{{r.id}}">
+                                        {{r.text}}
+                                    </a></td></tr>
+                        {% endfor %}
+                </table>
+            </h2>
+        </div>
+        <br>
+    {% endblock %}
+
+
+
