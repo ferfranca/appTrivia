@@ -1,16 +1,21 @@
 
 {% extends "base.html" %}
 {% block app_content %}
-<h1>Seleccione Categoria</h1>
-<br>
-<table border="0">
-   {% for categoria in categorias %}
-		<tr><td><a href="/trivia/{{categoria.id}}/pregunta">
-		{{categoria.descripcion}}
-		</a></td></tr>
-   {% endfor %}
-</table>
-<hr>
-<br>
+<div class="row centered-form">
+	<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+		<div class="panel panel-default">
+		        <div style="text-align: center;">
+				<h2>Seleccione Categoria</h2>
+				<br>
+		   	        {% for categoria in categorias %}
+				    <h3><a href="/trivia/{{categoria.id}}/pregunta">
+				    {{categoria.descripcion}}</a></h3>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+
 {% endblock %}
 

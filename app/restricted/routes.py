@@ -26,8 +26,6 @@ def on_identity_loaded(sender, identity):
     # Agregamos a la identidad la lista de roles que posee el usuario actual.
     if hasattr(current_user, 'roles'):
         for role in current_user.roles:
-            print(role)
-            print(role.rolename)
             identity.provides.add(RoleNeed(role.rolename))
 
 
@@ -57,6 +55,13 @@ admin.add_view(MyModelView(Resultado, db.session))
 admin.add_view(MyModelView(Usuario, db.session))
 admin.add_view(MyModelView(Role, db.session))
 
+#admin.add_view(ModelView(Categoria, db.session))
+#admin.add_view(ModelView(Pregunta, db.session))
+#admin.add_view(ModelView(Respuesta, db.session))
+#admin.add_view(ModelView(Ranking, db.session))
+#admin.add_view(ModelView(Resultado, db.session))
+#admin.add_view(ModelView(Usuario, db.session))
+#admin.add_view(ModelView(Role, db.session))
 
 
 @restricted_bp.route('/test')

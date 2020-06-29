@@ -16,12 +16,13 @@ def index_trivia():
 @public_bp.route('/ranking')
 @public_bp.route('/ranking/')
 def mostrar_ranking():
-    ranking = Ranking.query.order_by('t_jugado')
-    for r in ranking:
-        print (r.usuario)
+    lista = Ranking.query.order_by('t_jugado')
+    
+    ranking={}
+    for l in lista:
+        if (l.usuario not in ranking) and (len(ranking) <= 10):
+            ranking[l.usuario] = l.t_jugado
     return render_template('ranking.html', ranking=ranking)
-
-
 
 @public_bp.route('/trivia/categorias', methods=['GET'])
 @public_bp.route('/trivia/categorias/', methods=['GET'])

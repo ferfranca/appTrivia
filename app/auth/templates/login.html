@@ -1,52 +1,42 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.0.1">
-    <title>Signin Template · Bootstrap</title>
+{% extends "base.html" %}
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
+{% block styles %}
+{{super()}}
+<style>
+  .control-label {display: none;}
+</style>
+{% endblock %}
 
-    <!-- Bootstrap core CSS -->
-<link href="{{url_for('static',filename='css/signin.css')}}" rel="stylesheet">
+{% block app_content %}
+<div class="row centered-form">
+	<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+		<div class="panel panel-default">
+		<div class="form-group panel-heading">
+			<h2>Login Trivia</h2>
+		</div>
+		<div class="panel-body">
+			<form action="" role="form" method="post" class="form-signin">
+				{{ form.hidden_tag() }}
+				<div class="form-group form-row">
+					<div class="col">
+						 {{wtf.form_field(form.username, class="form-control input-sm", placeholder='Usuario o E-mail')}}
+					</div>
+				</div>
+				<div class="form-group form-row">
+					<div class="col">
+						 {{wtf.form_field(form.password, class="form-control input-sm", placeholder='Password')}}
+					</div>
+				</div>
+				<div class="checkbox mb-3">
+					{{wtf.form_field(form.remember_me, class="btn btn-lg btn-primary btn-block")}}
+					<a href="#" class="float-right">Forgot Password?</a>
+				</div>
+				{{wtf.form_field(form.submit, class="btn btn-lg btn-primary btn-block", placeholder='Login')}}
+		    	</form>
+			<p class="text-center text2"><a href="{{url_for('auth.register')}}">Create an Account</a></p>
+		</div>
+	</div>
+</div>
+{% endblock %}
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
-    <link href="{{url_for('static',filename='css/signin.css')}}" rel="stylesheet">
-  </head>
-  <body class="text-center">
-    <form class="form-signin" action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-  <label for="inputEmail" class="sr-only">Username or Email address</label>
-  <input type="email" name="username" class="form-control" placeholder="Email address" required autofocus>
-  <label for="inputPassword" class="sr-only">Password</label>
-  <input type="password" name="password" class="form-control" placeholder="Password" required>
-  <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" name="remember_me"> Remember me
-    </label>
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-  <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
-</form>
-</body>
-</html>

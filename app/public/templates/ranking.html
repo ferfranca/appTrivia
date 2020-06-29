@@ -1,16 +1,25 @@
-
 {% extends "base.html" %}
 {% block app_content %}
-<h1>Ranking</h1>
-<br>
-<table border="0">
-   {% for resultado in ranking %}
-		<tr><td><a>
-		{{resultado.usuario}} - {{resultado.t_jugado}}
-		</a></td></tr>
-   {% endfor %}
-</table>
-<hr>
-<br>
+<div class="row centered-form">
+	<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+		<div class="panel panel-default">
+		        <div style="text-align: center;">
+		        <h1>Ranking</h1>
+	    		       <h3>
+				<a>
+					Usuario - Tiempo
+				</a>
+                               </h3>
+			   {% for key, value in ranking.items() %}
+	    		       <h4>
+				<a>
+					{{key}} - {{value}}
+				</a>
+                               </h4>
+			   {% endfor %}
+                      </div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 

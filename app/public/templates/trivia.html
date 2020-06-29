@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block app_content %}
-    <h1>Home de la trivia</h1>
-    <h3> <a href="{{ url_for('public.mostrar_categorias') }}">Comenzar a jugar</a></h3>
-    <h3> <a href="{{ url_for('public.mostrar_ranking') }}">Ranking</a></h3>
+
+<div class="row centered-form">
+	<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+		<div class="panel panel-default">
+		        <div style="text-align: center;">
+			    <h1>Home de la trivia</h1><BR>
+			    <h2> <a href="{{ url_for('public.mostrar_categorias') }}"> Comenzar a jugar</a></h2>
+			    <h2> <a href="{{ url_for('public.mostrar_ranking') }}"> Ranking</a></h2><BR>
+			</div>
+		</div>
+	</div>
+</div>
+
 {% endblock %}

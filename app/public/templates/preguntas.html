@@ -1,24 +1,28 @@
     {% extends "base.html" %}
     {% block app_content %}
-        <h1>Categoría {{categoria.descripcion}}</h1>
-        <br>
-        <div style="text-align: center;">
-            <h2>
-                <span style="font-weight: bold; background-color: rgb(147, 206, 222);">{{pregunta.text}}</span>
-            </h2>
-            <br><div style="text-align:center;"></div><br>
-            <h2>
-                <table border="0">
-                        {% for r in respuestas_posibles %}
-                                <tr><td>
-                                    <a href="/trivia/{{pregunta.id}}/respuesta/{{r.id}}">
-                                        {{r.text}}
-                                    </a></td></tr>
-                        {% endfor %}
-                </table>
-            </h2>
-        </div>
-        <br>
+<div class="row centered-form">
+	<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+		<div class="panel panel-default">
+		        <h1>Categoría {{categoria.descripcion}}</h1>
+		        <div style="text-align: center;">
+		            <h2>
+		                <span>{{pregunta.text}}</span>
+		            </h2>
+		            <br><div style="text-align:center;"></div><br>
+                            {% for r in respuestas_posibles %}
+	    		       <h3>
+                                   <a href="/trivia/{{pregunta.id}}/respuesta/{{r.id}}">
+                                       {{r.text}}
+                                   </a>
+                               </h3>
+                            {% endfor %}
+                      </div>
+                     <br>
+		</div>
+	</div>
+</div>
+
+
     {% endblock %}
 
 
