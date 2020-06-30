@@ -1,6 +1,5 @@
-<body>
-    {% extends "base.html" %}
-    {% block app_content %}
+{% extends "base.html" %}
+{% block app_content %}
     <br>
     <div style="text-align: center;">
         <h2><span style="font-weight: bold; background-color: rgb(147, 206, 222);"> Respuesta {{message}}</span></h2>
@@ -13,5 +12,5 @@
     <div style="text-align: center;">
     <h3><a href="{{ url_for('public.mostrar_categorias') }}">Volver a Categorias</a></h3>
     </div>
-    {% endblock %}
-</body>
+{% endblock %}
+

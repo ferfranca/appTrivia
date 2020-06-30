@@ -2,11 +2,14 @@
 
 from . import restricted_bp
 
-from app import db, admin
+from app import db, admin, app
 from flask_login import current_user, login_required
 from flask_principal import Principal, Permission, Identity, AnonymousIdentity, RoleNeed, UserNeed, identity_loaded, identity_changed
-from flask import render_template, current_app, g
+from flask import render_template, current_app, g, abort
 from flask_admin.contrib.sqla import ModelView
+from flask import redirect, url_for, request
+
+
 
 from app.auth.models import Usuario, Role
 from app.public.models import Categoria, Pregunta, Respuesta, Ranking, Resultado
@@ -36,7 +39,7 @@ class MyModelView(ModelView):
         return has_auth and has_perm
 
     def inaccessible_callback(self, name, **kwargs):
-        return redirect(url_for('login', next=request.url))
+        return redirect(url_for('auth.login', next=request.url))
 
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
@@ -44,8 +47,18 @@ class MyAdminIndexView(AdminIndexView):
         has_perm = admin_permission.allows(g.identity)
         return has_auth and has_perm
 
+    def inaccessible_callback(self, name, **kwargs):
+        has_auth = current_user.is_authenticated
+        has_perm = admin_permission.allows(g.identity)
+        # esta loggeado pero no es admin
+        if has_auth and not has_perm:
+            abort(401)
+        # no loggeado
+        else:
+            return redirect(url_for('auth.login', next=request.url))
 
-admin._set_admin_index_view(MyAdminIndexView())
+
+admin.init_app(app, index_view=MyAdminIndexView())
 # agregadmos al admin de todos los modelos
 admin.add_view(MyModelView(Categoria, db.session))
 admin.add_view(MyModelView(Pregunta, db.session))

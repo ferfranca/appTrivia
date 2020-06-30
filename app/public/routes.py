@@ -2,6 +2,8 @@
 
 from app import login_required
 from flask import render_template, session
+from flask_login import current_user
+
 from . import public_bp
 from .models import Categoria, Pregunta, Respuesta, Ranking, Resultado
 import random
@@ -26,7 +28,7 @@ def mostrar_ranking():
 
 @public_bp.route('/trivia/categorias', methods=['GET'])
 @public_bp.route('/trivia/categorias/', methods=['GET'])
-@login_required
+#@login_required
 def mostrar_categorias():
     categorias = Categoria.query.all()
     if "t_inicio" not in session.keys():
@@ -46,7 +48,7 @@ def mostrar_categorias():
 
 
 @public_bp.route('/trivia/<id_categoria>/pregunta', methods=['GET'])
-@login_required
+#@login_required
 def mostrar_pregunta(id_categoria):
     preguntas = Pregunta.query.filter_by(categoria_id=id_categoria).all()
     # elegir pregunta aleatoria pero de la categoria adecuada
@@ -58,7 +60,7 @@ def mostrar_pregunta(id_categoria):
 
 
 @public_bp.route('/trivia/<int:pregunta_id>/respuesta/<int:id_respuesta>', methods=['GET'])
-@login_required
+#@login_required
 def evaluar_respuesta(pregunta_id, id_respuesta):
     respuesta = Respuesta.query.get(id_respuesta)
     pregunta = Pregunta.query.get(pregunta_id)
@@ -88,13 +90,13 @@ def evaluar_respuesta(pregunta_id, id_respuesta):
         return render_template('respuestas.html', message=msg)
     else:
         tiempo_total=datetime.datetime.now()-session['t_inicio']
-        registro = Ranking(usuario_id= session["_user_id"], t_inicio=session['t_inicio'], t_jugado=float(tiempo_total.total_seconds()))
-        registro.save()
-
-        for resp in session["respuestas"]:
-            resultado = Resultado(ranking_id=registro.id, pregunta_id=resp[0], respuesta_id=resp[1])
-            resultado.save()
-            print(str(resp[0])+" - "+str(resp[1]))
+        if current_user.is_authenticated:
+            registro = Ranking(usuario_id= session["_user_id"], t_inicio=session['t_inicio'], t_jugado=float(tiempo_total.total_seconds()))
+            registro.save()
+            for resp in session["respuestas"]:
+                resultado = Resultado(ranking_id=registro.id, pregunta_id=resp[0], respuesta_id=resp[1])
+                resultado.save()
+                print(str(resp[0])+" - "+str(resp[1]))
 
         session.clear()
         return render_template('ganador.html', tiempo_total=tiempo_total)
